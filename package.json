@@ -1,6 +1,14 @@
 {
   "name": "breviloquentia-post",
   "version": "1.0.0",
-  "main": "index.js",
-  "private": true
+  "private": true,
+  "scripts": {
+    "start": "npm run transpile && node index.js",
+    "transpile": "rm -rf build && babel src --out-dir build"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-root-import": "^5.1.0",
+    "babel-preset-env": "^1.6.1"
+  }
 }
