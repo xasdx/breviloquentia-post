@@ -4,11 +4,15 @@
   "private": true,
   "scripts": {
     "start": "npm run transpile && node index.js",
-    "transpile": "rm -rf build && babel src --out-dir build"
+    "test": "npm run transpile && npm run mocha",
+    "transpile": "rm -rf build && babel src --out-dir build",
+    "mocha": "mocha test/**/*.test.js --ui exports --require babel-core/register --require babel-polyfill --recursive --reporter spec --check-leaks"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-root-import": "^5.1.0",
-    "babel-preset-env": "^1.6.1"
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
   }
 }
