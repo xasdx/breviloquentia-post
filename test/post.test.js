@@ -15,9 +15,9 @@ export default {
       let name = "john"
       request(server.server)
         .post(API_PATH)
-        .send(`{ "name": ${name} }`)
-        .end((res) => {
-          console.log(res)
+        .send({ name: name })
+        .end((err, res) => {
+          if (err) throw err
           expect(res).to.have.status(200)
           expect(res.body.message).to.equal(name)
           done()

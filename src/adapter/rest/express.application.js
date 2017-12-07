@@ -6,6 +6,8 @@ export default class ExpressWebApplication {
 
   registerResource = (path, handler) => this.app.use(path, handler)
 
+  registerMiddleware = (middleware) => this.app.use(middleware)
+
   createRouter = () => express.Router()
 
   requestListener = () => this.app
