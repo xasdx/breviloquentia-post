@@ -6,7 +6,7 @@
     "start": "npm run transpile && node index.js",
     "test": "npm run transpile && npm run mocha",
     "transpile": "rm -rf build && babel src --out-dir build",
-    "mocha": "mocha test/**/*.test.js --ui exports --require babel-core/register --require babel-polyfill --recursive --reporter spec --check-leaks"
+    "mocha": "mocha test/**/*.test.js --ui exports --timeout 3000 --require babel-core/register --require babel-polyfill --recursive --reporter spec --check-leaks"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",

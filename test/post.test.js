@@ -10,6 +10,7 @@ import server from "~"
 let API_PATH = "/api/posts"
 
 export default {
+  "after": (done) => server.stop(done),
   "POST": {
     "creates a post": (done) => {
       let name = "john"
