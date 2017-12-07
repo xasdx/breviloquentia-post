@@ -1,18 +1,11 @@
-import WebServer from "~/adapter/rest/server"
-import WebApplication from "~/adapter/rest/express.application"
-import postResourceRouter from "~/adapter/rest/resource/post"
-import bodyParser from "~/adapter/rest/middleware/body-parser"
+import postResource from "~/adapter/rest/resource/post"
 
-let app = new WebApplication()
-app.registerMiddleware(bodyParser)
-app.registerResource("/api", postResourceRouter(app.createRouter()))
+import webApplication from "~/adapter/rest"
 
-let server = new WebServer(app, {
-  web: {
-    app: {
-      port: 3210
-    }
-  }
-})
+let API_BASE_PATH = "/api"
+
+let { app, server } = webApplication({ web: { app: { port: 3210 } } })
+
+app.registerResource(API_BASE_PATH, postResource(app.createRouter()))
 
 export default server
