@@ -7,7 +7,7 @@ let API_BASE_PATH = "/api"
 
 let testEnvironment = {
   web: { app: { port: 3210 } },
-  db: { url: "mongodb://localhost:27017" }
+  db: { url: "mongodb://127.0.0.1:27017" }
 }
 
 let { app, server } = webApplication(testEnvironment)
