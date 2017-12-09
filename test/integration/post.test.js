@@ -1,8 +1,10 @@
 import { expect } from "chai"
 import Api from "../util/request.util"
+import DB from "../util/database.util"
 import { server, repository } from "~"
 
 let api = new Api(server.server, "/api/posts")
+let db = new DB("posts")
 
 let post = {
   author: "asd",
@@ -12,16 +14,22 @@ let post = {
 }
 
 export default {
-  "after": (done) => repository.disconnect(() => server.stop(done)),
+  "before": (f) => db.connect(f),
+  "after": (f) => db.close(() => repository.disconnect(() => server.stop(f))),
+  "beforeEach": (f) => db.init(f),
   "POST": {
-    "creates a post": (done) => {
+    "creates a post": (f) => {
       api.post(post, (res) => {
         res.is.ok()
         res.is.json()
-        res.has.body.containing(post)
+        expect(res.body).to.deep.include(post)
         expect(res.body._id).to.be.a("string")
         expect(Date.parse(res.body.date)).to.be.a("number")
-        done()
+        db.findAll((docs) => {
+          expect(docs).to.have.lengthOf(1)
+          expect(docs[0]._id.toString()).to.equal(res.body._id)
+          f()
+        })
       })
     }
   }

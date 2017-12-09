@@ -30,11 +30,11 @@ export default class MongooseRepository {
     entity.save(databaseCallback(ok, nope))
   })
   
-  disconnect = (cb) => {
+  disconnect = (f) => {
     if (mongoose.connection.readyState === connection.connected) {
       mongoose.connection.close(() => {
         console.log("disconnecting from mongodb")
-        if (cb) cb()
+        if (f) f()
       })
     }
   }

@@ -7,16 +7,16 @@ export default class WebServer {
     this.env = environment
   }
 
-  start = (cb) => {
+  start = (f) => {
     let port = this.env.web.app.port
     return this.server.listen(port, (err) => {
       if (err) throw err
       console.log(`server up on port ${port}`)
-      cb()
+      if (f) f()
     })
   }
 
-  stop = (cb) => this.server.close(cb)
+  stop = (f) => this.server.close(f)
 
   server = () => this.server
 }
