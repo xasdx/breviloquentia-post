@@ -30,6 +30,10 @@ export default class MongooseRepository {
     entity.save(databaseCallback(ok, nope))
   })
   
+  find = (query) => new Promise((ok, nope) => {
+    this.entity.find(query ? query : {}, databaseCallback(ok, nope))
+  })
+  
   disconnect = (f) => {
     if (mongoose.connection.readyState === connection.connected) {
       mongoose.connection.close(() => {

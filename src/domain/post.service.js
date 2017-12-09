@@ -5,4 +5,6 @@ export default class PostService {
   }
   
   create = async (post) => await this.repo.create(post)
+  
+  findAll = async () => await this.repo.find()
 }

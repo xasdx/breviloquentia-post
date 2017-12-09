@@ -13,6 +13,13 @@ let post = {
   tags: ["testing", "introduction"]
 }
 
+let otherPost = {
+  author: "dsa",
+  title: "Hexagonal architecture",
+  body: "Content goes here.",
+  tags: ["architecture"]
+}
+
 export default {
   "before": (f) => db.connect(f),
   "after": (f) => db.close(() => repository.disconnect(() => server.stop(f))),
@@ -28,6 +35,26 @@ export default {
         db.findAll((docs) => {
           expect(docs).to.have.lengthOf(1)
           expect(docs[0]._id.toString()).to.equal(res.body._id)
+          f()
+        })
+      })
+    }
+  },
+  "GET": {
+    "returns posts": (f) => {
+      db.put([
+        Object.assign({}, post),
+        Object.assign({}, otherPost)
+      ], () => {
+        api.get((res) => {
+          res.is.ok()
+          res.is.json()
+          expect(res.body).to.be.an("array")
+          expect(res.body).to.have.lengthOf(2)
+          expect(res.body[0]).to.deep.include(post)
+          expect(res.body[0]._id).to.be.a("string")
+          expect(Date.parse(res.body[0].date)).to.be.a("number")
+          expect(res.body[1]).to.deep.include(otherPost)
           f()
         })
       })
