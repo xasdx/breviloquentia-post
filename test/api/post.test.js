@@ -1,28 +1,21 @@
-import chai from "chai"
-import chaiHttp from "chai-http"
+import { expect } from "chai"
 
-chai.use(chaiHttp)
-
-let { expect, request } = chai
+import Api from "./util.request"
 
 import server from "~"
 
-let API_PATH = "/api/posts"
+let api = new Api(server.server, "/api/posts")
 
 export default {
   "after": (done) => server.stop(done),
   "POST": {
     "creates a post": (done) => {
       let name = "john"
-      request(server.server)
-        .post(API_PATH)
-        .send({ name: name })
-        .end((err, res) => {
-          if (err) throw err
-          expect(res).to.have.status(200)
+      api.post({ name: name }, (res) => {
+        expect(res).to.have.status(200)
           expect(res.body.message).to.equal(name)
           done()
-        })
+      })
     }
   }
 }
