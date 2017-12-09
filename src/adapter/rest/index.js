@@ -1,7 +1,6 @@
-import WebServer from "./server"
-import WebApplication from "./express.application"
-
-import middlewares from "./middleware"
+import WebServer from "~/adapter/rest/server"
+import WebApplication from "~/adapter/rest/express.application"
+import middlewares from "~/adapter/rest/middleware"
 
 let assembleWebApplication = () => {
   let app = new WebApplication()

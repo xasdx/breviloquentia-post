@@ -1,4 +1,4 @@
-import bodyParser from "./body-parser"
+import bodyParser from "~/adapter/rest/middleware/body-parser"
 
 export default () => [
   bodyParser

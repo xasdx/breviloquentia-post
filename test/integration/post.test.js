@@ -1,7 +1,5 @@
 import { expect } from "chai"
-
-import Api from "./request.util"
-
+import Api from "../util/request.util"
 import { server, repository } from "~"
 
 let api = new Api(server.server, "/api/posts")
