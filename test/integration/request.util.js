@@ -16,7 +16,10 @@ let extendWithAssertions = (res) => {
     json: () => expect(res).to.have.header("content-type", /^application\/json/),
   }
   res.has = {
-    body: (obj) => expect(res.body).to.eql(obj)
+    body: {
+      eql: (obj) => expect(res.body).to.eql(obj),
+      containing: (obj) => expect(res.body).to.deep.include(obj)
+    }
   }
   return res
 }

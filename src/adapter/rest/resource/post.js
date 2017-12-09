@@ -1,7 +1,10 @@
 let API_BASE_PATH = "/posts"
 
-export default (router) => {
+export default (router, service) => {
   router.route(API_BASE_PATH)
-        .post((req, res) => res.json(req.body))
+        .post(async (req, res) => {
+          let post = await service.create(req.body)
+          res.json(post)
+        })
   return router
 }

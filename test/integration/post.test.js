@@ -1,6 +1,6 @@
 import { expect } from "chai"
 
-import Api from "./util.request"
+import Api from "./request.util"
 
 import server from "~"
 
@@ -10,7 +10,6 @@ let post = {
   author: "asd",
   title: "Introduction to JUnit5",
   body: "Content goes here.",
-  date: Date.now(),
   tags: ["testing", "introduction"]
 }
 
@@ -21,7 +20,9 @@ export default {
       api.post(post, (res) => {
         res.is.ok()
         res.is.json()
-        res.has.body(post)
+        res.has.body.containing(post)
+        expect(res.body._id).to.be.a("string")
+        expect(Date.parse(res.body.date)).to.be.a("number")
         done()
       })
     }

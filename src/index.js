@@ -1,11 +1,20 @@
-import postResource from "~/adapter/rest/resource/post"
-
 import webApplication from "~/adapter/rest"
+
+import postResource from "~/adapter/rest/resource/post"
+import postService from "~/domain"
 
 let API_BASE_PATH = "/api"
 
-let { app, server } = webApplication({ web: { app: { port: 3210 } } })
+let testEnvironment = {
+    web: { app: { port: 3210 } },
+    db: { url: "mongodb://localhost:27017" }
+}
 
-app.registerResource(API_BASE_PATH, postResource(app.createRouter()))
+let { app, server } = webApplication(testEnvironment)
+
+app.registerResource(API_BASE_PATH, postResource(
+    app.createRouter(),
+    postService(testEnvironment)
+))
 
 export default server
