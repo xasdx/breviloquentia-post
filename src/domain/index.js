@@ -4,5 +4,8 @@ import PostService from "~/domain/post.service"
 
 export default (environment) => {
   let repository = new MongooseRepository(environment, PostModel)
-  return new PostService(repository)
+  return {
+    repository: repository,
+    service: new PostService(repository)
+  }
 }

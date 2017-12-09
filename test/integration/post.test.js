@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 import Api from "./request.util"
 
-import server from "~"
+import { server, repository } from "~"
 
 let api = new Api(server.server, "/api/posts")
 
@@ -14,7 +14,7 @@ let post = {
 }
 
 export default {
-  "after": (done) => server.stop(done),
+  "after": (done) => repository.disconnect(() => server.stop(done)),
   "POST": {
     "creates a post": (done) => {
       api.post(post, (res) => {
