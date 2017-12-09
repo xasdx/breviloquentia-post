@@ -3,11 +3,22 @@ import chaiHttp from "chai-http"
 
 chai.use(chaiHttp)
 
-let { request } = chai
+let { expect, request } = chai
 
 let requestCallback = (cb) => (err, res) => {
   if (err) throw err
-  cb(res)
+  cb(extendWithAssertions(res))
+}
+
+let extendWithAssertions = (res) => {
+  res.is = {
+    ok: () => expect(res).to.have.status(200),
+    json: () => expect(res).to.have.header("content-type", /^application\/json/),
+  }
+  res.has = {
+    body: (obj) => expect(res.body).to.eql(obj)
+  }
+  return res
 }
 
 export default class Api {
