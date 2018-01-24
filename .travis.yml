@@ -1,11 +1,18 @@
 language: node_js
+
 node_js:
-- node
-services: mongodb
+  - node
+
+services:
+  - mongodb
+  - rabbitmq
+
 install:
-- npm install
+  - npm install
+
 script:
-- npm test
+  - npm test
+  
 deploy:
   provider: heroku
   app: breviloquentia-post
