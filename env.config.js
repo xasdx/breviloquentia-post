@@ -11,7 +11,7 @@ module.exports = {
   },
   messaging: {
     amqp: {
-      url: process.env.MESSAGING_AMQP_URL || "amqp://localhost"
+      url: process.env.MESSAGING_AMQP_URL || "amqp://localhost",
       exchange: {
         resources: process.env.MESSAGING_AMQP_EXCHANGE_RESOURCES || "breviloquentia-resources"
       }

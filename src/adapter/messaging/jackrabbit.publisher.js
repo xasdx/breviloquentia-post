@@ -8,7 +8,7 @@ export default class JackrabbitPublisher {
   }
   
   onExchange(exchangeName) {
-    let exchange = this.rabbit(exchangeName)
+    let exchange = this.rabbit.topic(exchangeName)
     return {
       publish: (message, routing) => exchange.publish(message, routing)
     }
