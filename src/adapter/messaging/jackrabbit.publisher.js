@@ -10,7 +10,7 @@ export default class JackrabbitPublisher {
   onExchange(exchangeName) {
     let exchange = this.rabbit.topic(exchangeName)
     return {
-      publish: (message, routing) => exchange.publish(message, routing)
+      publish: (message, route) => exchange.publish(message, { key: route })
     }
   }
 }

@@ -1,5 +1,4 @@
 import { expect } from "chai"
-import { mockery } from "mockery"
 import Api from "../util/request.util"
 import DB from "../util/database.util"
 import { server, repository } from "~"
@@ -22,14 +21,8 @@ let otherPost = {
 }
 
 export default {
-  "before": (f) => {
-    db.connect(f)
-    mockery.enable()
-  },
-  "after": (f) => {
-    db.close(() => repository.disconnect(() => server.stop(f)))
-    mockery.disable()
-  },
+  "before": (f) => db.connect(f),
+  "after": (f) => db.close(() => repository.disconnect(() => server.stop(f))),
   "beforeEach": (f) => db.init(f),
   "POST": {
     "creates a post": (f) => {
