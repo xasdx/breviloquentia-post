@@ -9,6 +9,7 @@ export default class PostService {
   create = async (post) => {
     let postResource = await this.repo.create(post)
     this.resourcesPublisher.publish(postResource, "post.create")
+    return postResource
   }
   
   findAll = async () => await this.repo.find()
