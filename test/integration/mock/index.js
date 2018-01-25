@@ -1,7 +1,9 @@
 import mockery from "mockery"
-import jackrabbitMock from "./jackrabbit.mock"
+import jackrabbitMock, { calls as jackrabbitCalls } from "./jackrabbit.mock"
 
 mockery.enable({ warnOnReplace: false, warnOnUnregistered: false })
 mockery.registerMock("jackrabbit", jackrabbitMock)
 
-export { jackrabbitMock }
+export default {
+	calls: { jackrabbit: jackrabbitCalls }
+}
