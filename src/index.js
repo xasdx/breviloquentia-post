@@ -12,5 +12,5 @@ app.registerResource("/api", postResource(app.createRouter(), service))
 
 module.exports = {
 	server,
-	stop: (f) => cleanUp(() => server.stop(() => f()))
+	terminate: (f) => cleanUp(() => server.stop(() => f()))
 }

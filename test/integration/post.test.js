@@ -1,7 +1,9 @@
 import { expect } from "chai"
 import Api from "../util/request.util"
 import DB from "../util/database.util"
-import { server, stop } from "~"
+import "./mock"
+
+let { server, terminate } = require("~")
 
 let api = new Api(server.server, "/api/posts")
 let db = new DB("posts")
@@ -22,7 +24,7 @@ let otherPost = {
 
 export default {
   "before": (f) => db.connect(f),
-  "after": (f) => db.close(() => stop(f)),
+  "after": (f) => db.close(() => terminate(f)),
   "beforeEach": (f) => db.init(f),
   "POST": {
     "creates a post": (f) => {
