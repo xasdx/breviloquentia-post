@@ -7,14 +7,14 @@ let api = new Api(server.server, "/api/posts")
 let db = new DB("posts")
 
 let post = {
-  author: "asd",
+  userId: "asd",
   title: "Introduction to JUnit5",
   body: "Content goes here.",
   tags: ["testing", "introduction"]
 }
 
 let otherPost = {
-  author: "dsa",
+  userId: "dsa",
   title: "Hexagonal architecture",
   body: "Content goes here.",
   tags: ["architecture"]
