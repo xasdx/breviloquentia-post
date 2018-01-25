@@ -1,10 +1,15 @@
+let calls = []
+
 export default (amqpUrl) => {
   return {
     topic: (exchangeName) => {
       return {
-        publish: (message, routing) => {}
+        publish: (message, routing) => {
+          calls.push({ message, routing })
+        }
       }
     },
-    close: () => {}
+    close: () => {},
+    calls: () => calls
   }
 }

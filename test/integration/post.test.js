@@ -1,7 +1,7 @@
 import { expect } from "chai"
 import Api from "../util/request.util"
 import DB from "../util/database.util"
-import "./mock"
+import { jackrabbitMock } from "./mock"
 
 let { server, terminate } = require("~")
 
@@ -34,6 +34,12 @@ export default {
         expect(res.body).to.deep.include(post)
         expect(res.body._id).to.be.a("string")
         expect(Date.parse(res.body.date)).to.be.a("number")
+        
+        let mockCalls = jackrabbitMock().calls()
+        expect(mockCalls).to.have.lengthOf(1)
+        expect(mockCalls[0].message).to.deep.include(post)
+        expect(mockCalls[0].routing).to.deep.equal({ key: "post.create" })
+        
         db.findAll((docs) => {
           expect(docs).to.have.lengthOf(1)
           expect(docs[0]._id.toString()).to.equal(res.body._id)
