@@ -6,8 +6,11 @@ import postService from "~/domain"
 console.log(`Assembling application on ${environment.env} environment`)
 
 let { app, server } = webApplication(environment)
-let { repository, service, cleanUp } = postService(environment)
+let { service, cleanUp } = postService(environment)
 
 app.registerResource("/api", postResource(app.createRouter(), service))
 
-module.exports = { server, repository, cleanUp }
+module.exports = {
+	server,
+	stop: (f) => cleanUp(() => server.stop(() => f()))
+}

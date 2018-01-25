@@ -7,8 +7,12 @@ export default (environment) => {
   let repository = new MongooseRepository(environment, PostModel)
   let messagePublisher = new JackrabbitPublisher(environment)
   return {
-    repository: repository,
     service: new PostService(environment, repository, messagePublisher),
-    cleanUp: () => messagePublisher.disconnect()
+    cleanUp: (f) => {
+      repository.disconnect(() => {
+        messagePublisher.disconnect()
+        f()
+      })
+    }
   }
 }
