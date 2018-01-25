@@ -13,4 +13,8 @@ export default class JackrabbitPublisher {
       publish: (message, route) => exchange.publish(message, { key: route })
     }
   }
+  
+  disconnect() {
+    this.rabbit.close()
+  }
 }

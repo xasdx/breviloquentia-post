@@ -8,6 +8,7 @@ export default (environment) => {
   let messagePublisher = new JackrabbitPublisher(environment)
   return {
     repository: repository,
-    service: new PostService(environment, repository, messagePublisher)
+    service: new PostService(environment, repository, messagePublisher),
+    cleanUp: () => messagePublisher.disconnect()
   }
 }
