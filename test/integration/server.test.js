@@ -29,7 +29,8 @@ export default {
 	"server": {
 		"returns the http.Server instance": (f) => {
 			let server = new WebServer({ requestListener: () => express() }, environment())
-			expect(server.server().listen).to.be.a("function")
+			let httpServer = server.server
+			expect(httpServer.listen).to.be.a("function")
 			server.stop(() => f())
 		}
 	}
