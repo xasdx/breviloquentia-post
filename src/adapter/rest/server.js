@@ -17,6 +17,4 @@ export default class WebServer {
   }
 
   stop = (f) => this.server.close(f)
-
-  server = () => this.server
 }
