@@ -5,14 +5,13 @@ node_js:
 
 services:
   - mongodb
-  - rabbitmq
 
 install:
   - npm install
 
 script:
   - npm run coveralls
-  
+
 deploy:
   provider: heroku
   app: breviloquentia-post

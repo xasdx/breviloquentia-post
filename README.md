@@ -10,4 +10,5 @@
 + Using Babel transpilation
 + Exposing a rest api with ExpressJs
 + Managing data with Mongoose ODM
++ Emitting messages with Jackrabbit
 + Having test coverage with Mocha and Chai

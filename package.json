@@ -28,9 +28,12 @@
     "mocha-lcov-reporter": "^1.3.0",
     "mockery": "^2.1.0",
     "mongoose": "^4.13.6",
-    "nyc": "^11.4.1"
+    "nyc": "^11.4.1",
+    "superagent": "^3.8.2"
   },
   "nyc": {
-    "exclude": ["build"]
+    "exclude": [
+      "build"
+    ]
   }
 }
