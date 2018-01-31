@@ -7,7 +7,7 @@ export default class PostService {
   }
   
   create = async (post) => {
-    let postResource = await this.repo.create(post)
+    let postResource = (await this.repo.create(post)).toObject({ versionKey: false })
     this.resourcesPublisher.publish(postResource, "post.create")
     return postResource
   }

@@ -1,8 +1,12 @@
-import { expect } from "chai"
+import chai from "chai"
+import structuredLike from "chai-structured-like"
 import Api from "../util/request.util"
 import DB from "../util/database.util"
 import mock from "./mock"
 
+chai.use(structuredLike)
+
+let { expect } = chai
 let { server, terminate } = require("~")
 
 let api = new Api(server.server, "/api/posts")
@@ -31,9 +35,8 @@ export default {
       api.post(post, (res) => {
         res.is.ok()
         res.is.json()
+        expect(res.body).to.be.structured({ _id: "uuid", date: "", ...post })
         expect(res.body).to.deep.include(post)
-        expect(res.body._id).to.be.a("string")
-        expect(Date.parse(res.body.date)).to.be.a("number")
         expect(mock.calls.jackrabbit.publish).to.have.lengthOf(1)
         expect(mock.calls.jackrabbit.publish[0].message).to.deep.include(post)
         expect(mock.calls.jackrabbit.publish[0].routing).to.deep.equal({ key: "post.create" })
@@ -56,9 +59,7 @@ export default {
           res.is.json()
           expect(res.body).to.be.an("array")
           expect(res.body).to.have.lengthOf(2)
-          expect(res.body[0]).to.deep.include(post)
-          expect(res.body[0]._id).to.be.a("string")
-          expect(Date.parse(res.body[0].date)).to.be.a("number")
+          expect(res.body[0]).to.be.structured({ _id: "uuid", date: "", ...post })
           expect(res.body[1]).to.deep.include(otherPost)
           f()
         })
